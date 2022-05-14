@@ -1,6 +1,6 @@
 const app = require("./app")
 const dotenv = require("dotenv")
-const connectDatabase = require("./configs/db")
+const connectDatabase = require("./src/configs/db")
 
 
 //config file

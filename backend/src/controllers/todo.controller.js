@@ -15,10 +15,13 @@ exports.getAllTodo = catchAsyncErrors(async(req,res,next)=>{
         const currentPage = req.query.page || 1
         const resultPerPage = 5
         const skip = resultPerPage*(currentPage-1)
+        const count = await Todo.countDocuments()
         const todos = await Todo.find().limit(resultPerPage).skip(skip)
         res.status(200).json({
             succcess:true,
-            todos
+            todos,
+            count,
+            resultPerPage
         })
 })
 
