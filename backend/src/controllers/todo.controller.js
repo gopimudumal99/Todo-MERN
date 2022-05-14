@@ -1,79 +1,52 @@
 const Todo = require("../models/todo.model")
-
-
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors")
+const ErrorHandler = require("../utils/errorHandler")
 //Create Todo
-exports.createTodo = async(req,res) =>{
-    try{    
+exports.createTodo = catchAsyncErrors(async(req,res,next) =>{
         const todo = await Todo.create(req.body)
         res.status(201).json({
             succcess:true,
             todo
         })
-
-    }catch(error){
-        res.status(404).json({
-            succcess:false,
-            error
-        })
-    }
-
-}
+})
 
 //Get All Todo
-exports.getAllTodo = async(req,res)=>{
-    try {
-        const todos = await Todo.find()
+exports.getAllTodo = catchAsyncErrors(async(req,res,next)=>{
+        const currentPage = req.query.page || 1
+        const resultPerPage = 5
+        const skip = resultPerPage*(currentPage-1)
+        const todos = await Todo.find().limit(resultPerPage).skip(skip)
         res.status(200).json({
             succcess:true,
             todos
         })
-    } catch (error) {
-        res.status(404).json({
-            succcess:false,
-            error
-        })
-    }
-}
+})
 
 // Updating todo
-exports.updatingTodo = async(req,res)=>{
-    try {
-        const todo = await Todo.findByIdAndUpdate(req.parmas.id,req.body,{new:true})
+exports.updatingTodo = catchAsyncErrors(async(req,res,next)=>{
+        let todo = await Todo.findById(req.params.id)
+        if(!todo){
+            return next(new ErrorHandler("todo not found",404))
+        }
+        todo = await Todo.findByIdAndUpdate(req.params.id,req.body,{new:true})
         res.status(200).json({
             succcess:true,
             todo
         })
-    } catch (error) {
-        res.status(404).json({
-            succcess:false,
-            error
-        })
-    }
-}
+})
 
 //deleting Todo
-exports.deleteTodo = async(req,res)=>{
-    try{
+exports.deleteTodo =catchAsyncErrors(async(req,res,next)=>{
         let todo = await Todo.findById(req.params.id)
-        if(!todo){
-            res.status(404).json({
-                succcess:"false",
-                message:"todo not found"
-            })
-        }
-         todo = await Todo.findByIdAndDelete(req.params.id)
+
+        if(!todo) return next(new ErrorHandler("todo not found",404))
+        
+        todo = await Todo.findByIdAndDelete(req.params.id)
 
         res.status(200).json({
             succcess:true,
             message: "delted succefully"
-        })
-    }
-    catch(error){
-        res.status(404).json({
-            succcess:false,
-            error
-        })
-    }
-}
+        })  
+})
 
 
