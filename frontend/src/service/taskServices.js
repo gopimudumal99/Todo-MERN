@@ -1,5 +1,6 @@
 import axios from 'axios'
-const task_api = "http://localhost:8000/api/v1"
+// const task_api = "http://localhost:8000/api/v1"
+const task_api = "https://gopi-todo.herokuapp.com/api/v1/"
 
 const addTodo = function(task){
     return axios.post(`${task_api}/todos/new`,{title:task})
