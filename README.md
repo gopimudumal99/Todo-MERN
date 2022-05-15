@@ -4,6 +4,15 @@
 Todo app having crud opertion in it to showcase of front end and backend knowledege of mine
 
 
+## Screenshots
+
+![todo-mern.png](https://i.postimg.cc/hjyQgkgX/todo-mern.png)
+
+## Demo
+
+https://gopi-todo.herokuapp.com/
+
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
