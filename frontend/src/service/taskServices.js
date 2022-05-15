@@ -9,8 +9,8 @@ const getTodos = function(){
     return axios.get(`${task_api}/todos`)
 }
 
-const updateTodos = function(id,task){
-    return axios.put(`${task_api}/todos/${id}`,{title:task})
+const updateTodos = function(todo){
+    return axios.put(`${task_api}/todos/${todo._id}`,{title:todo.title,completed:todo.completed})
 }
 
 const deleteTodo = function(id){
