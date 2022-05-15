@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 function ListItem({todo,id,checkCompleted,changeTodTitle}) {
     const[onEdit,setOnEdit] = useState(false)
     const [editValue,setEditValue] = useState(todo.title)

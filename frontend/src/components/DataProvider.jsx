@@ -7,7 +7,7 @@ export const DataProvider = (props) =>{
     const [todos,setTodos] = useState([])
 
     useEffect(()=>{
-        const getData = async()=>{
+      const getData = async()=>{
             const {data} = await getTodos()
             setTodos(data.todos)
         }
