@@ -1,10 +1,12 @@
 const app = require("./app")
-const dotenv = require("dotenv")
 const connectDatabase = require("./src/configs/db")
 
 
 //config file
-dotenv.config({path:"backend/src/configs/config.env"})
+//in heroku i give env varible NODE_ENV = "PRODUCTION" on the time heroku not took this file
+if(process.env.NODE_ENV !== "PRODUCTION"){
+    require("dotenv").config({path:"backend/src/configs/config.env"})
+}
 
 //DB connecting...
 connectDatabase()
